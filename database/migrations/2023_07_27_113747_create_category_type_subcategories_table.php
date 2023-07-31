@@ -18,6 +18,9 @@ class CreateCategoryTypeSubcategoriesTable extends Migration
             $table->unsignedBigInteger('category_type_id');
             $table->unsignedBigInteger('subcategory_id');
             $table->timestamps();
+
+            $table->foreign('category_type_id')->references('id')->on('category_types');
+            $table->foreign('subcategory_id')->references('id')->on('subcategories');
         });
     }
 
@@ -28,6 +31,10 @@ class CreateCategoryTypeSubcategoriesTable extends Migration
      */
     public function down()
     {
+        Schema::table('category_type_subcategories', function (Blueprint $table){
+            $table->dropForeign(['category_type_id']);
+            $table->dropForeign(['subcategory_id']);
+        });
         Schema::dropIfExists('category_type_subcategories');
     }
 }

@@ -15,9 +15,12 @@ class CreateInstitutionPermittersTable extends Migration
     {
         Schema::create('institution_permitters', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('institution_id');
             $table->string('name');
             $table->string('address');
             $table->timestamps();
+
+            $table->foreign('institution_id')->references('id')->on('institutions');
         });
     }
 
@@ -28,6 +31,9 @@ class CreateInstitutionPermittersTable extends Migration
      */
     public function down()
     {
+        Schema::table('institution_permitters', function (Blueprint $table){
+            $table->dropForeign(['institution_id']);
+        });
         Schema::dropIfExists('institution_permitters');
     }
 }

@@ -19,6 +19,9 @@ class CreateRateSiteSettingsTable extends Migration
             $table->decimal('service_charge',14,2);
             $table->decimal('penalty_charge',14,2);
             $table->timestamps();
+
+            $table->foreign('site_setting_id')->references('id')->on('site_settings');
+
         });
     }
 
@@ -29,6 +32,9 @@ class CreateRateSiteSettingsTable extends Migration
      */
     public function down()
     {
+        Schema::table('rate_site_settings', function (Blueprint $table){
+            $table->dropForeign(['site_setting_id']);
+        });
         Schema::dropIfExists('rate_site_settings');
     }
 }

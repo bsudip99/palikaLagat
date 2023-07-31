@@ -20,6 +20,9 @@ class CreateCategorySiteSettingsTable extends Migration
             $table->string('input');
             $table->string('type');
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('site_setting_id')->references('id')->on('site_settings');
         });
     }
 
@@ -30,6 +33,10 @@ class CreateCategorySiteSettingsTable extends Migration
      */
     public function down()
     {
+        Schema::table('category_site_settings', function (Blueprint $table){
+            $table->dropForeign(['category_id']);
+            $table->dropForeign(['site_setting_id']);
+        });
         Schema::dropIfExists('category_site_settings');
     }
 }

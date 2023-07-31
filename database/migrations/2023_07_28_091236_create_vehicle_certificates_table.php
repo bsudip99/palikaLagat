@@ -17,6 +17,9 @@ class CreateVehicleCertificatesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('institution_machinery_id');
             $table->timestamps();
+
+            $table->foreign('institution_machinery_id')->references('id')->on('institution_machineries');
+
         });
     }
 
@@ -27,6 +30,9 @@ class CreateVehicleCertificatesTable extends Migration
      */
     public function down()
     {
+        Schema::table('vehicle_certificates', function (Blueprint $table){
+            $table->dropForeign(['institution_machinery_id']);
+        });
         Schema::dropIfExists('vehicle_certificates');
     }
 }

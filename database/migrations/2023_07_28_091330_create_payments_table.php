@@ -20,6 +20,9 @@ class CreatePaymentsTable extends Migration
             $table->string('document');
             $table->date('payment_date');
             $table->timestamps();
+
+            $table->foreign('institution_id')->references('id')->on('institutions');
+
         });
     }
 
@@ -30,6 +33,9 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
+        Schema::table('payments', function (Blueprint $table){
+            $table->dropForeign(['institution_id']);
+        });
         Schema::dropIfExists('payments');
     }
 }

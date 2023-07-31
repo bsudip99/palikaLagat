@@ -19,6 +19,8 @@ class CreateInstitutionDocumentsTable extends Migration
             $table->string('document_path');
             $table->string('document_title');
             $table->timestamps();
+
+            $table->foreign('institution_id')->references('id')->on('institutions');
         });
     }
 
@@ -29,6 +31,9 @@ class CreateInstitutionDocumentsTable extends Migration
      */
     public function down()
     {
+        Schema::table('institution_documents', function (Blueprint $table){
+            $table->dropForeign(['institution_id']);
+        });
         Schema::dropIfExists('institution_documents');
     }
 }

@@ -15,7 +15,7 @@ class CreateHouseRecordArchivesTable extends Migration
     {
         Schema::create('house_record_archives', function (Blueprint $table) {
             $table->id();
-            $table->name();
+            $table->string('name');
             $table->timestamps();
         });
     }

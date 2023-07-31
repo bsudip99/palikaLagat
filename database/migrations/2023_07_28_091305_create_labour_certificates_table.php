@@ -36,8 +36,9 @@ class CreateLabourCertificatesTable extends Migration
             $table->string('work_start_date');
             $table->string('work_end_date');
             $table->string('work_address');
-            $table->string('worker_age');
             $table->timestamps();
+
+            $table->foreign('institution_id')->references('id')->on('institutions');
         });
     }
 
@@ -48,6 +49,9 @@ class CreateLabourCertificatesTable extends Migration
      */
     public function down()
     {
+        Schema::table('labour_certificates', function (Blueprint $table){
+            $table->dropForeign(['institution_id']);
+        });
         Schema::dropIfExists('labour_certificates');
     }
 }

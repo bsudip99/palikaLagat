@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInstitutionContactPeopleTable extends Migration
+class CreateInstitutionContactPersonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -23,6 +23,8 @@ class CreateInstitutionContactPeopleTable extends Migration
             $table->string('mobile_number');
             $table->string('email_address')->nullable();
             $table->timestamps();
+
+            $table->foreign('institution_id')->references('id')->on('institutions');
         });
     }
 
@@ -33,6 +35,9 @@ class CreateInstitutionContactPeopleTable extends Migration
      */
     public function down()
     {
+        Schema::table('institution_contact_persons', function (Blueprint $table){
+            $table->dropForeign(['institution_id']);
+        });
         Schema::dropIfExists('institution_contact_people');
     }
 }

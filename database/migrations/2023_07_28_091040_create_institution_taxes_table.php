@@ -22,6 +22,8 @@ class CreateInstitutionTaxesTable extends Migration
             $table->string('registration_number');
             $table->date('renewal_date');
             $table->timestamps();
+
+            $table->foreign('institution_id')->references('id')->on('institutions');
         });
     }
 
@@ -32,6 +34,9 @@ class CreateInstitutionTaxesTable extends Migration
      */
     public function down()
     {
+        Schema::table('institution_taxes', function (Blueprint $table){
+            $table->dropForeign(['institution_id']);
+        });
         Schema::dropIfExists('institution_taxes');
     }
 }

@@ -23,6 +23,8 @@ class CreateInstitutionOperatorsTable extends Migration
             $table->string('mobile_number');
             $table->string('email_address')->nullable();
             $table->timestamps();
+
+            $table->foreign('institution_id')->references('id')->on('institutions');
         });
     }
 
@@ -33,6 +35,9 @@ class CreateInstitutionOperatorsTable extends Migration
      */
     public function down()
     {
+        Schema::table('institution_operators', function (Blueprint $table){
+            $table->dropForeign(['institution_id']);
+        });
         Schema::dropIfExists('institution_operators');
     }
 }

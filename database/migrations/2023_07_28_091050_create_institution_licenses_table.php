@@ -23,6 +23,8 @@ class CreateInstitutionLicensesTable extends Migration
             $table->string('registration_number');
             $table->date('renewal_date');
             $table->timestamps();
+
+            $table->foreign('institution_id')->references('id')->on('institutions');
         });
     }
 
@@ -33,6 +35,9 @@ class CreateInstitutionLicensesTable extends Migration
      */
     public function down()
     {
+        Schema::table('institution_licenses', function (Blueprint $table){
+            $table->dropForeign(['institution_id']);
+        });
         Schema::dropIfExists('institution_licenses');
     }
 }

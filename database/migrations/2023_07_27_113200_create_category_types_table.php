@@ -18,6 +18,8 @@ class CreateCategoryTypesTable extends Migration
             $table->unsignedBigInteger('category_id');
             $table->string('type');
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
@@ -28,6 +30,9 @@ class CreateCategoryTypesTable extends Migration
      */
     public function down()
     {
+        Schema::table('category_types', function (Blueprint $table){
+            $table->dropForeign(['category_id']);
+        });
         Schema::dropIfExists('category_types');
     }
 }

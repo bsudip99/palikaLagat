@@ -24,6 +24,9 @@ class CreateInstitutionsTable extends Migration
             $table->date('registered_date');
             $table->string('registered_number');
             $table->timestamps();
+
+            $table->foreign('branch_id')->references('id')->on('branches');
+            $table->foreign('category_type_id')->references('id')->on('category_types');
         });
     }
 
@@ -34,6 +37,10 @@ class CreateInstitutionsTable extends Migration
      */
     public function down()
     {
+        Schema::table('institutions', function (Blueprint $table){
+            $table->dropForeign(['branch_id']);
+            $table->dropForeign(['category_type_id']);
+        });
         Schema::dropIfExists('institutions');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaymentsTable extends Migration
+class CreateInstitutionCertificatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('institution_certificates', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('institution_id');
-            $table->string('payment_detail');
-            $table->string('document');
-            $table->date('payment_date');
             $table->enum('is_printed',[true,false])->default(false);
             $table->integer('print_count')->default(0);
-            $table->string('added_by');
+            $table->string('registered_by');
             $table->string('register_signature');
             $table->string('register_name');
             $table->string('register_designation');
@@ -29,7 +26,6 @@ class CreatePaymentsTable extends Migration
             $table->timestamps();
 
             $table->foreign('institution_id')->references('id')->on('institutions');
-
         });
     }
 
@@ -40,9 +36,6 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('payments', function (Blueprint $table){
-            $table->dropForeign(['institution_id']);
-        });
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('institution_certificates');
     }
 }

@@ -15,13 +15,13 @@ class CreateCategorySiteSettingsTable extends Migration
     {
         Schema::create('category_site_settings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('category_type_id');
             $table->unsignedBigInteger('site_setting_id');
             $table->string('input');
             $table->string('type');
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('category_id')->references('id')->on('category_types');
             $table->foreign('site_setting_id')->references('id')->on('site_settings');
         });
     }

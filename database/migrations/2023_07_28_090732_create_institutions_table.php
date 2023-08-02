@@ -18,15 +18,19 @@ class CreateInstitutionsTable extends Migration
             $table->unsignedBigInteger('branch_id'); 
             $table->unsignedBigInteger('category_type_id'); 
             $table->string('type'); //archive/list
-            $table->string('unique_number'); //A0012080 / S0012080
+            $table->string('unique_number'); // A0012080 / S0012080
             $table->string('name');
             $table->string('address');
             $table->date('registered_date');
             $table->string('registered_number');
+            $table->string('pan_number');
+            $table->text('particulars'); // what work does it do ?
+            $table->unsignedBigInteger('added_by');
             $table->timestamps();
 
             $table->foreign('branch_id')->references('id')->on('branches');
             $table->foreign('category_type_id')->references('id')->on('category_types');
+            $table->foreign('added_by')->references('id')->on('users');
         });
     }
 

@@ -36,6 +36,14 @@ class CreateLabourCertificatesTable extends Migration
             $table->string('work_start_date');
             $table->string('work_end_date');
             $table->string('work_address');
+
+            $table->enum('is_printed',[true,false])->default(false);
+            $table->integer('print_count')->default(0);
+            $table->string('registered_by');
+            $table->string('register_signature');
+            $table->string('register_name');
+            $table->string('register_designation');
+            $table->string('registered_date');
             $table->timestamps();
 
             $table->foreign('institution_id')->references('id')->on('institutions');

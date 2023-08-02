@@ -48,6 +48,14 @@ class CreateHouseDetailCertificatesTable extends Migration
             $table->string('onsite_inspection');
             $table->string('technical_referal_by');
             $table->string('archiving_proven_by');
+
+            $table->enum('is_printed',[true,false])->default(false);
+            $table->integer('print_count')->default(0);
+            $table->string('registered_by');
+            $table->string('register_signature');
+            $table->string('register_name');
+            $table->string('register_designation');
+            $table->string('registered_date');
             $table->timestamps();
         });
     }
